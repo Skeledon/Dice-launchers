@@ -671,7 +671,7 @@ MonoBehaviour:
   - {fileID: 1260774604511336, guid: a6796ded47a23d741ad91a6c035a01c5, type: 2}
   - {fileID: 100000, guid: 3bbbc25881226434b86bd98e9424cd6c, type: 2}
   dice:
-    red: 2
+    red: 5
     white: 3
     blue: 0
     green: 0
