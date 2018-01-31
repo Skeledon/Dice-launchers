@@ -17,14 +17,30 @@ public class DiceSpawner : MonoBehaviour
     public GameObject[] Prefabs;
     public Dice dice;
     List<Vector3> mySpawners = new List<Vector3>();
+    List<GameObject> currentDice = new List<GameObject>();
     Transform[] myChildren;
 	// Use this for initialization
 	void Start ()
     {
-        myChildren = GetComponentsInChildren<Transform>();
-        foreach(Transform t in myChildren)
+        SpawnDice();
+    }
+	
+	// Update is called once per frame
+	void Update ()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(t != transform)
+            ResetDice();
+            SpawnDice();
+        }
+	}
+
+    void SpawnDice()
+    {
+        myChildren = GetComponentsInChildren<Transform>();
+        foreach (Transform t in myChildren)
+        {
+            if (t != transform)
             {
                 mySpawners.Add(t.position);
             }
@@ -32,44 +48,47 @@ public class DiceSpawner : MonoBehaviour
         for (int i = 0; i < dice.red; i++)
         {
             int r = Random.Range(0, mySpawners.Count);
-            GameObject.Instantiate(Prefabs[0], mySpawners[r], Random.rotation);
+            currentDice.Add( GameObject.Instantiate(Prefabs[0], mySpawners[r], Random.rotation));
             mySpawners.RemoveAt(r);
         }
         for (int i = 0; i < dice.white; i++)
         {
             int r = Random.Range(0, mySpawners.Count);
-            GameObject.Instantiate(Prefabs[1], mySpawners[r], Random.rotation);
+            currentDice.Add(GameObject.Instantiate(Prefabs[1], mySpawners[r], Random.rotation));
             mySpawners.RemoveAt(r);
         }
         for (int i = 0; i < dice.blue; i++)
         {
             int r = Random.Range(0, mySpawners.Count);
-            GameObject.Instantiate(Prefabs[2], mySpawners[r], Random.rotation);
+            currentDice.Add(GameObject.Instantiate(Prefabs[2], mySpawners[r], Random.rotation));
             mySpawners.RemoveAt(r);
         }
         for (int i = 0; i < dice.green; i++)
         {
             int r = Random.Range(0, mySpawners.Count);
-            GameObject.Instantiate(Prefabs[3], mySpawners[r], Random.rotation);
+            currentDice.Add(GameObject.Instantiate(Prefabs[3], mySpawners[r], Random.rotation));
             mySpawners.RemoveAt(r);
         }
         for (int i = 0; i < dice.yellow; i++)
         {
             int r = Random.Range(0, mySpawners.Count);
-            GameObject.Instantiate(Prefabs[4], mySpawners[r], Random.rotation);
+            currentDice.Add(GameObject.Instantiate(Prefabs[4], mySpawners[r], Random.rotation));
             mySpawners.RemoveAt(r);
         }
         for (int i = 0; i < dice.black; i++)
         {
             int r = Random.Range(0, mySpawners.Count);
-            GameObject.Instantiate(Prefabs[5], mySpawners[r], Random.rotation);
+            currentDice.Add(GameObject.Instantiate(Prefabs[5], mySpawners[r], Random.rotation));
             mySpawners.RemoveAt(r);
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    void ResetDice()
     {
-		
-	}
+        foreach(GameObject g in currentDice)
+        {
+            Destroy(g);
+        }
+        currentDice.Clear();
+    }
 }
